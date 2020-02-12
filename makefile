@@ -13,8 +13,8 @@ ${NAME}:	${OBJS}
 			ranlib ${NAME}
 all:		${NAME}
 clean:
-			${RM} ${OBJS} ${OBJS_B}
+			${RM} ${OBJS}
 fclean:		clean
 			${RM} ${NAME}
 re:			fclean bonus
-.PHONY:		bonus all clean fclean re
+.PHONY:		all clean fclean re

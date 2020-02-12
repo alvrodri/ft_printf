@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/09 18:43:54 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/12 13:46:28 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,58 @@ void	ft_print_specific(char type, va_list list)
 		ft_print_hex_up(va_arg(list, int));
 }
 
+void	ft_init_flags(t_flags *flags)
+{
+	flags->width = -1;
+	flags->minus = -1;
+	flags->zero = -1;
+}
+
+void	ft_enable_flags(const char *str, t_flags *flags, va_list args)
+{
+	if (ft_isdigit(str[0]) && str[0] != '0')
+		flags->width = ft_atoi(str);
+	else if (str[0] == '-')
+	{
+		flags->minus = 1;
+		flags->width = ft_atoi(str + 1);
+	}
+	else if (str[0] == '0')
+	{
+		flags->zero = 1;
+		flags->width = ft_atoi(str);
+	}
+	printf("width: %d, minus: %d, zero: %d\n", flags->width, flags->minus, flags->zero);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list args;
+	t_flags flags;
 	int		i;
 
 	va_start(args, str);
+	ft_init_flags(&flags);
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '%' && str[i + 1])
 		{
-			if (str[i] == '%' && str[i + 1] == '%')
-			{
-				write(1, "%", 1);
-			}
-			else
-			{
-				ft_print_specific(str[i + 1], args);
-			}
+			ft_enable_flags(str + i + 1, &flags, args);
 			i++;
 		}
 		else if (str[i] != '%')
 		{
-			write(1, &str[i], 1);
+			//write(1, &str[i], 1);
+			i++;
 		}
-		i++;
 	}
 	va_end(args);
 }
 
 int main()
 {
-	int				i;
-	unsigned int 	ui;
-	i = 10;
-	ui = 50;
-
-	ft_printf("percent: %%\nchar: %c\nstring: %s\nint: %d\npointer: %p\nunsigned int: %u\nhex low: %x\nhex up: %X\n", 'z', "me llamo alvaro", i, &i, ui, 1990, 1990);
+	ft_printf("%95d", 10);
+	ft_printf("%-6d", 10);
+	ft_printf("%02d", 10);
 }
