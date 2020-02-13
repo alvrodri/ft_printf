@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:39:28 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/09 18:27:48 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/13 15:41:44 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,14 @@ void	ft_print_str(va_list list)
 	}
 }
 
-void	ft_print_int(int nbr)
-{
-	long lnb;
-	char c;
-
-	lnb = nbr;
-	if (lnb < 0)
-	{
-		lnb = -lnb;
-		write(1, "-", 1);
-	}
-	if (lnb > 9)
-	{
-		ft_print_int(lnb / 10);
-		ft_print_int(lnb % 10);
-	}
-	else
-	{
-		c = lnb + '0';
-		write(1, &c, 1);
-	}
-}
-
 void	ft_print_uint(unsigned int nbr)
 {
 	char c;
 
 	if (nbr > 9)
 	{
-		ft_print_int(nbr / 10);
-		ft_print_int(nbr % 10);
+		ft_print_uint(nbr / 10);
+		ft_print_uint(nbr % 10);
 	}
 	else
 	{
