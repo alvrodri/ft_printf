@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 12:39:28 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 13:45:39 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:09:57 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	ft_print_str(va_list list)
 	int		i;
 	
 	str = va_arg(list, char *);
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return ;
+	}
 	i = 0;
 	while (str[i])
 	{

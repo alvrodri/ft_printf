@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 13:26:51 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:09:20 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_print_specific(char type, va_list list, t_flags flags)
 		ft_print_hex_low(va_arg(list, int));
 	else if (type == 'X')
 		ft_print_hex_up(va_arg(list, int));
+	else if (type == '%')
+		write(1, "%", 1);
 }
 
 void	ft_init_flags(t_flags *flags)
@@ -101,8 +103,3 @@ int		ft_printf(const char *str, ...)
 	return (1);
 }
 
-int main()
-{
-	ft_printf("%0*d\n", 5, 10);
-	printf("%0*d\n", 5, 10);
-}
