@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/13 16:19:17 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:26:51 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_print_specific(char type, va_list list, t_flags flags)
 void	ft_init_flags(t_flags *flags)
 {
 	flags->width = -1;
-	flags->precision = 1;
+	flags->precision = -1;
 	flags->minus = -1;
 	flags->zero = -1;
 }
@@ -42,9 +42,7 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 {
 	int i;
 
-	i = -1;
-	while (str[++i] == '0')
-		flags->zero = 1;
+	i = 0;
 	if (str[i] == '-')
 	{
 		flags->minus = 1;
@@ -55,20 +53,24 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 		flags->zero = 1;
 		i++;
 	}
-	while (ft_isdigit(str[i]))
+	if (str[i] == '*')
 	{
-		if (flags->width == -1)
-			flags->width = str[i] - '0';
-		else
-			flags->width = flags->width * 10 + (str[i] - '0');
+		flags->width = va_arg(args, int);
 		i++;
 	}
+	else
+		flags->width = ft_get_nbr(str, &i);
 	if (str[i] == '.')
-		while (ft_isdigit(str[i]))
+	{
+		i++;
+		if (str[i] == '*')
 		{
-			flags->precision = flags->precision * 10 + (str[i] - '0');
+			flags->precision = va_arg(args, int);
 			i++;
 		}
+		else
+			flags->precision = ft_get_nbr(str, &i);
+	}
 	ft_print_specific(str[i], args, *flags);
 	return (i + 2);
 }
@@ -96,16 +98,11 @@ int		ft_printf(const char *str, ...)
 		}
 	}
 	va_end(args);
+	return (1);
 }
 
 int main()
 {
-	/*printf("%05d || %5d || %-5d\n", 10, 10, 10);
-	ft_printf("%05d || %5d || %-5d\n", 10, 10, 10);
-	printf("%5d\n",1560133635);
-	ft_printf("%5d\n",1560133635);
-	printf("%07d\n",-2552);
-	ft_printf("%07d",-2552);*/
-	printf("%15.10d\n", -57);
-	ft_printf("%15.10d\n", -57);
+	ft_printf("%0*d\n", 5, 10);
+	printf("%0*d\n", 5, 10);
 }

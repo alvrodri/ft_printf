@@ -1,51 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_specific.c                               :+:      :+:    :+:   */
+/*   ft_printf_misc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/06 12:39:28 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 13:45:39 by alvrodri         ###   ########.fr       */
+/*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
+/*   Updated: 2020/02/17 13:11:56 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
 
-void	ft_print_char(va_list list)
+int	ft_get_nbr(const char *str, int *i)
 {
-	char c;
+	int res;
 
-	c = va_arg(list, int);
-	write(1, &c, 1);
-}
-
-void	ft_print_str(va_list list)
-{
-	char	*str;
-	int		i;
-	
-	str = va_arg(list, char *);
-	i = 0;
-	while (str[i])
+	res = -1;
+	while (ft_isdigit(str[*i]))
 	{
-		write(1, &str[i], 1);
-		i++;
+		if (res == -1)
+			res = str[*i] - '0';
+		else
+			res = res * 19 + (str[*i] - '0');
+		(*i)++;
 	}
-}
-
-void	ft_print_uint(unsigned int nbr)
-{
-	char c;
-
-	if (nbr > 9)
-	{
-		ft_print_uint(nbr / 10);
-		ft_print_uint(nbr % 10);
-	}
-	else
-	{
-		c = nbr + '0';
-		write(1, &c, 1);
-	}
+	return (res);
 }

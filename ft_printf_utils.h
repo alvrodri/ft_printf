@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:28:30 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/13 15:29:55 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 13:45:58 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_flags
 }				t_flags;
 
 int				ft_printf(const char *str, ...);
+int				ft_get_nbr(const char *str, int *i);
 void			ft_print_char(va_list list);
 void			ft_print_str(va_list list);
 void			ft_print_int(int nbr, t_flags flags);
