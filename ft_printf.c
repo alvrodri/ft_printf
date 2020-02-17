@@ -6,18 +6,18 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 17:09:20 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:11:44 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
 
-void	ft_print_specific(char type, va_list list, t_flags flags)
+void	ft_print_specific(char type, va_list list, t_flags *flags)
 {
 	if (type == 's')
-		ft_print_str(list);
+		ft_print_str(list, flags);
 	else if (type == 'c')
-		ft_print_char(list);
+		ft_print_char(list, flags);
 	else if (type == 'd' || type == 'i')
 		ft_print_int(va_arg(list, int), flags);
 	else if (type == 'p')
@@ -73,7 +73,7 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 		else
 			flags->precision = ft_get_nbr(str, &i);
 	}
-	ft_print_specific(str[i], args, *flags);
+	ft_print_specific(str[i], args, flags);
 	return (i + 2);
 }
 
@@ -84,6 +84,7 @@ int		ft_printf(const char *str, ...)
 	int		i;
 
 	va_start(args, str);
+	flags.written = 0;
 	ft_init_flags(&flags);
 	i = 0;
 	while (str[i])
@@ -96,10 +97,11 @@ int		ft_printf(const char *str, ...)
 		else if (str[i] != '%')
 		{
 			write(1, &str[i], 1);
+			(flags.written)++;
 			i++;
 		}
 	}
 	va_end(args);
-	return (1);
+	return (flags.written);
 }
 

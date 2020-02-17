@@ -6,13 +6,13 @@
 /*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:54:43 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 17:02:52 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:52:30 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
 
-void	ft_print_nbr(int nbr)
+void	ft_print_nbr(int nbr, t_flags *flags)
 {
 	long lnb;
 	char c;
@@ -25,17 +25,18 @@ void	ft_print_nbr(int nbr)
 	}
 	if (lnb > 9)
 	{
-		ft_print_nbr(lnb / 10);
-		ft_print_nbr(lnb % 10);
+		ft_print_nbr(lnb / 10, flags);
+		ft_print_nbr(lnb % 10, flags);
 	}
 	else
 	{
 		c = lnb + '0';
 		write(1, &c, 1);
+		(flags->written)++;
 	}
 }
 
-void	ft_print_extra(int *nbr, int len, t_flags flags)
+void	ft_print_extra(int *nbr, int len, t_flags *flags)
 {
 	int i;
 
@@ -45,49 +46,50 @@ void	ft_print_extra(int *nbr, int len, t_flags flags)
 		write(1, "-", 1);
 		*nbr = -*nbr;
 	}
-	while (i < flags.width - len)
+	while (i < flags->width - len)
 	{
-		write(1, flags.zero == 1 ? "0" : " ", 1);
+		write(1, flags->zero == 1 ? "0" : " ", 1);
+		(flags->written)++;
 		i++;
 	}
 }
 
-void	ft_print_prec(int nbr, t_flags flags)
+void	ft_print_prec(int nbr, t_flags *flags)
 {
 	int i;
 
 	i = 0;
-	while (i < flags.width - flags.precision)
+	while (i < flags->width - flags->precision)
 	{
 		write(1, " ", 1);
+		(flags->written)++;
 		i++;
 	}
 	i = 0;
-	while (i < flags.precision - ft_get_length(nbr))
+	while (i < flags->precision - ft_get_length(nbr))
 	{
 		write(1, "0", 1);
+		(flags->written)++;
 		i++;
 	}
-	ft_print_nbr(nbr);
+	ft_print_nbr(nbr, flags);
 }
 
-void	ft_print_int(int nbr, t_flags flags)
+void	ft_print_int(int nbr, t_flags *flags)
 {
-	if (flags.precision != -1 && ft_get_length(nbr) < flags.precision)
-	{
+	if (flags->precision != -1 && ft_get_length(nbr) < flags->precision)
 		ft_print_prec(nbr, flags);
-	}
 	else
 	{
-		if (flags.minus == 1)
+		if (flags->minus == 1)
 		{
-			ft_print_nbr(nbr);
+			ft_print_nbr(nbr, flags);
 			ft_print_extra(&nbr, ft_get_length(nbr), flags);
 		}
 		else
 		{
 			ft_print_extra(&nbr, ft_get_length(nbr), flags);
-			ft_print_nbr(nbr);
+			ft_print_nbr(nbr, flags);
 		}
 	}
 }

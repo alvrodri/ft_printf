@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:28:30 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 16:23:07 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:59:37 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ typedef struct	s_flags
 	int			precision;
 	int			minus;
 	int			zero;
+	int			written;
 }				t_flags;
 
 int				ft_printf(const char *str, ...);
 int				ft_get_nbr(const char *str, int *i);
 int				ft_get_length(int nbr);
-void			ft_print_char(va_list list);
-void			ft_print_str(va_list list);
-void			ft_print_int(int nbr, t_flags flags);
+void			ft_print_char(va_list list, t_flags *flags);
+void			ft_print_str(va_list list, t_flags *flags);
+void			ft_print_int(int nbr, t_flags *flags);
 void			ft_print_uint(unsigned int nbr);
 void			ft_print_pointer(va_list list);
 void			ft_print_hex_low(int nbr);
