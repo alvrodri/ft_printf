@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_char.c                                   :+:      :+:    :+:   */
+/*   ft_printf_percent.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 17:55:46 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 12:12:47 by alvrodri         ###   ########.fr       */
+/*   Created: 2020/02/18 10:45:11 by alvrodri          #+#    #+#             */
+/*   Updated: 2020/02/18 10:58:02 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
 
-void	ft_print_cwidth(t_flags *flags)
+void	ft_print_pwidth(t_flags *flags)
 {
-	int i;
+   	int i;
 
 	i = 0;
 	while (i < flags->width - 1)
 	{
-		write(1, flags->zero == 1 ? "0" : " ", 1);
+		write(1, flags->zero == 1 && flags->minus != 1 ? "0" : " ", 1);
 		(flags->written)++;
 		i++;
 	}
 }
 
-void	ft_print_char(va_list args, t_flags *flags)
+void	ft_print_percent(t_flags *flags)
 {
-	char c;
-
-	c = va_arg(args, int);
 	if (flags->width != -1 && flags->minus != 1)
-		ft_print_cwidth(flags);
-	write(1, &c, 1);
+		ft_print_pwidth(flags);
+	write(1, "%", 1);
 	if (flags->width != 1 && flags->minus == 1)
-		ft_print_cwidth(flags);
+        ft_print_pwidth(flags);
 	(flags->written)++;
 }

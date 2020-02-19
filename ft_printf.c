@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 18:11:44 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:50:20 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 	else if (type == 'd' || type == 'i')
 		ft_print_int(va_arg(list, int), flags);
 	else if (type == 'p')
-		ft_print_pointer(list);
+		ft_print_pointer(list, flags);
 	else if (type == 'u')
-		ft_print_uint(va_arg(list, unsigned int));
-	else if (type == 'x')
-		ft_print_hex_low(va_arg(list, int));
+		ft_print_uint(va_arg(list, unsigned int), flags);
+	/*else if (type == 'x')
+		ft_print_hex_low(va_arg(list, unsigned int));
 	else if (type == 'X')
-		ft_print_hex_up(va_arg(list, int));
+		ft_print_hex_up(va_arg(list, unsigned int));*/
 	else if (type == '%')
-		write(1, "%", 1);
+		ft_print_percent(flags);
 }
 
 void	ft_init_flags(t_flags *flags)
@@ -45,6 +45,11 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 	int i;
 
 	i = 0;
+	while (str[i] == '0')
+	{
+		flags->zero = 1;
+		i++;
+	}
 	if (str[i] == '-')
 	{
 		flags->minus = 1;
@@ -65,6 +70,8 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 	if (str[i] == '.')
 	{
 		i++;
+		if (!ft_isdigit(str[i]) && str[i] != '*')
+			return (-1);
 		if (str[i] == '*')
 		{
 			flags->precision = va_arg(args, int);
@@ -73,6 +80,8 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 		else
 			flags->precision = ft_get_nbr(str, &i);
 	}
+	if (!ft_isalpha(str[i]) && str[i] != '%')
+		return (1);
 	ft_print_specific(str[i], args, flags);
 	return (i + 2);
 }
@@ -92,6 +101,8 @@ int		ft_printf(const char *str, ...)
 		if (str[i] == '%' && str[i + 1])
 		{
 			i += ft_enable_flags(str + i + 1, &flags, args);
+			if (i == -1)
+				return (flags.written);
 			ft_init_flags(&flags);
 		}
 		else if (str[i] != '%')
@@ -100,6 +111,8 @@ int		ft_printf(const char *str, ...)
 			(flags.written)++;
 			i++;
 		}
+		else
+			i++;
 	}
 	va_end(args);
 	return (flags.written);
