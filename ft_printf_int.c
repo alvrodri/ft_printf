@@ -6,7 +6,7 @@
 /*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:54:43 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 16:19:11 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:48:24 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,27 @@ void	ft_print_extra(int *nbr, int len, t_flags *flags)
 	int i;
 
 	i = 0;
+	if (*nbr < 0 && flags->zero == 1)
+	{
+		*nbr = -(*nbr);
+		write(1, "-", 1);
+		(flags->written)++;
+	}
 	while (i < flags->width - len)
 	{
 		write(1, flags->zero == 1 ? "0" : " ", 1);
+		(flags->written)++;
+		i++;
+	}
+}
+
+void	ft_print_wp(int nbr, t_flags *flags, int i)
+{
+	if (i != 1)
+		i = 0;
+	while (i < flags->width - flags->precision)
+	{
+		write(1, " ", 1);
 		(flags->written)++;
 		i++;
 	}
@@ -56,16 +74,14 @@ void	ft_print_prec(int nbr, t_flags *flags)
 
 	i = 0;
 	if (nbr < 0)
+		i = 1;
+	if (flags->minus == -1)
+		ft_print_wp(nbr, flags, i);
+	if (nbr < 0)
 	{
 		write(1, "-", 1);
 		(flags->written)++;
 		nbr = -nbr;
-	}
-	while (i < flags->width - flags->precision)
-	{
-		write(1, " ", 1);
-		(flags->written)++;
-		i++;
 	}
 	i = 0;
 	while (i < flags->precision - ft_get_length(nbr))
@@ -75,6 +91,8 @@ void	ft_print_prec(int nbr, t_flags *flags)
 		i++;
 	}
 	ft_print_nbr(nbr, flags);
+	if (flags->minus == 1)
+		ft_print_wp(nbr, flags, i);
 }
 
 void	ft_print_int(int nbr, t_flags *flags)

@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 16:50:20 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:48:35 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,9 @@ int		ft_printf(const char *str, ...)
 	va_end(args);
 	return (flags.written);
 }
-
+/*
+int main()
+{
+	printf("%-8.5d\n", 34);
+	ft_printf("%-8.5d\n", 34);
+}*/

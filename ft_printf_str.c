@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:24:47 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 13:11:06 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 11:23:54 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	ft_print_width(char *str, t_flags *flags)
 
 	i = 0;
 	len = ft_strlen(str);
-	while (i < flags->width - len)
+	/*while (i < )
 	{
 		write(1, flags->zero == 1 ? "0" : " ", 1);
 		(flags->written++);
 		i++;
-	}
+	}*/
 }
 
 void	ft_print_strprec(char *str, t_flags *flags)
@@ -32,19 +32,16 @@ void	ft_print_strprec(char *str, t_flags *flags)
 	int i;
 
 	i = 0;
-	while (i < flags->width - flags->precision)
-	{
-		write(1, flags->zero == 1 ? "0" : " ", 1);
-		(flags->written)++;
-		i++;
-	}
-	i = 0;
+	if (flags->minus == -1)
+		ft_print_width(str, flags);
 	while (i < flags->precision && str[i])
 	{
 		write(1, &str[i], 1);
 		(flags->written)++;
 		i++;
 	}
+	if (flags->minus == 1)
+		ft_print_width(str, flags);
 }
 
 void    ft_print_str(va_list list, t_flags *flags)
