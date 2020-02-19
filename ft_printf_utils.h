@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:28:30 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 15:57:40 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:48:32 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_flags
 int				ft_printf(const char *str, ...);
 int				ft_get_nbr(const char *str, int *i);
 int				ft_get_length(int nbr);
-void			ft_print_blank(int len, int zero);
+int				ft_print_blank(int len, int zero);
 void			ft_print_char(va_list list, t_flags *flags);
 void			ft_print_str(va_list list, t_flags *flags);
 void			ft_print_int(int nbr, t_flags *flags);

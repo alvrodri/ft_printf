@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 16:01:28 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:48:21 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int     ft_get_length(int nbr)
     return (len + 1);
 }
 
-void	ft_print_blank(int len, int zero)
+int		ft_print_blank(int len, int zero)
 {
 	int i;
 
@@ -55,4 +55,5 @@ void	ft_print_blank(int len, int zero)
 		write(1, zero == 1 ? "0" : " ", 1);
 		i++;
 	}
+	return (i);
 }
