@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 11:48:35 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:01:02 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_print_specific(char type, va_list list, t_flags *flags)
 {
+	if (flags->precision != -1 && flags->zero == 1)
+		flags->zero = -1;
 	if (type == 's')
 		ft_print_str(list, flags);
 	else if (type == 'c')
@@ -70,7 +72,7 @@ int		ft_enable_flags(const char *str, t_flags *flags, va_list args)
 	if (str[i] == '.')
 	{
 		i++;
-		if (!ft_isdigit(str[i]) && str[i] != '*')
+		if (!ft_isdigit(str[i]) && str[i] != '*' && !ft_isalpha(str[i]))
 			return (-1);
 		if (str[i] == '*')
 		{
@@ -120,6 +122,5 @@ int		ft_printf(const char *str, ...)
 /*
 int main()
 {
-	printf("%-8.5d\n", 34);
-	ft_printf("%-8.5d\n", 34);
+	ft_printf("%-7d\n", 33);
 }*/

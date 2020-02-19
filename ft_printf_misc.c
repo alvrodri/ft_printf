@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/17 17:12:08 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:01:28 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_get_nbr(const char *str, int *i)
 	int res;
 
 	res = -1;
+	if (ft_isalpha(str[*i]))
+		res = 0;
 	while (ft_isdigit(str[*i]))
 	{
 		if (res == -1)
@@ -41,4 +43,16 @@ int     ft_get_length(int nbr)
         len++;
     }
     return (len + 1);
+}
+
+void	ft_print_blank(int len, int zero)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		write(1, zero == 1 ? "0" : " ", 1);
+		i++;
+	}
 }

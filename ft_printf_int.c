@@ -6,7 +6,7 @@
 /*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:54:43 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 11:48:24 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:02:14 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,13 @@ void	ft_print_prec(int nbr, t_flags *flags)
 
 void	ft_print_int(int nbr, t_flags *flags)
 {
+	if (flags->precision == 0)
+	{
+		ft_print_blank(flags->width, flags->zero);
+		if (flags->width > 0)
+			(flags->written) += flags->width;
+		return ;
+	}
 	if (flags->precision != -1 && ft_get_length(nbr) < flags->precision)
 		ft_print_prec(nbr, flags);
 	else
