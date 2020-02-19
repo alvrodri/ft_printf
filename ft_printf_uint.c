@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:17:58 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 16:46:23 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/19 16:29:26 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ void	ft_print_uprec(unsigned int nbr, t_flags *flags)
 
 void	ft_print_uint(unsigned int nbr, t_flags *flags)
 {
+	if (flags->precision == 0)
+	{
+		ft_print_blank(flags->width, flags->zero);
+		if (flags->width > 0)
+			(flags->written) += flags->width;
+		return ;
+	}
 	if (flags->precision != -1 && ft_get_length(nbr) < flags->precision)
 		ft_print_uprec(nbr, flags);
 	else
