@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:28:30 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 16:48:32 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 16:39:45 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			ft_print_str(va_list list, t_flags *flags);
 void			ft_print_int(int nbr, t_flags *flags);
 void			ft_print_uint(unsigned int nbr, t_flags *flags);
 void			ft_print_pointer(va_list list, t_flags *flags);
-void			ft_print_hex_low(unsigned int nbr, t_flags *flags);
+void			ft_print_x(unsigned int nbr, t_flags *flags);
 void			ft_print_hex_up(unsigned int nbr, t_flags *flags);
 void			ft_print_percent(t_flags *flags);
 

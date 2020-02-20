@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 16:48:21 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 15:04:02 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,27 @@ int	ft_get_nbr(const char *str, int *i)
 	return (res);
 }
 
-int     ft_get_length(int nbr)
+int	ft_get_length(int nbr)
 {
-    int len;
+	int len;
 
-    len = nbr < 0 ? 1 : 0;
-    if (nbr < 0)
-        nbr = -nbr;
-    while (nbr > 9)
-    {
-        nbr /= 10;
-        len++;
-    }
-    return (len + 1);
+	len = nbr < 0 ? 1 : 0;
+	if (nbr < 0)
+		nbr = -nbr;
+	while (nbr > 9)
+	{
+		nbr /= 10;
+		len++;
+	}
+	return (len + 1);
 }
 
-int		ft_print_blank(int len, int zero)
+int	ft_print_blank(int len, int zero)
 {
 	int i;
 
-	i = 0;
-	while (i < len)
-	{
+	i = -1;
+	while (++i < len)
 		write(1, zero == 1 ? "0" : " ", 1);
-		i++;
-	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:54:43 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 16:36:44 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 14:59:23 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,16 @@ void	ft_print_wp(int nbr, t_flags *flags, int i)
 	}
 }
 
-void	ft_print_prec(int nbr, t_flags *flags)
+void	ft_print_prec(int nbr, t_flags *flags, int m)
 {
 	int i;
 
 	i = 0;
 	if (nbr < 0)
+	{
 		i = 1;
+		m = 1;
+	}
 	if (flags->minus == -1)
 		ft_print_wp(nbr, flags, i);
 	if (nbr < 0)
@@ -83,20 +86,21 @@ void	ft_print_prec(int nbr, t_flags *flags)
 		(flags->written)++;
 		nbr = -nbr;
 	}
-	i = 0;
-	while (i < flags->precision - ft_get_length(nbr))
+	i = -1;
+	while (++i < flags->precision - ft_get_length(nbr))
 	{
 		write(1, "0", 1);
 		(flags->written)++;
-		i++;
 	}
 	ft_print_nbr(nbr, flags);
 	if (flags->minus == 1)
-		ft_print_wp(nbr, flags, i);
+		ft_print_wp(nbr, flags, m == 1 ? 1 : 0);
 }
 
 void	ft_print_int(int nbr, t_flags *flags)
 {
+	int m;
+
 	if (flags->precision == 0)
 	{
 		ft_print_blank(flags->width, flags->zero);
@@ -105,7 +109,7 @@ void	ft_print_int(int nbr, t_flags *flags)
 		return ;
 	}
 	if (flags->precision != -1 && ft_get_length(nbr) < flags->precision)
-		ft_print_prec(nbr, flags);
+		ft_print_prec(nbr, flags, m);
 	else
 	{
 		if (flags->minus == 1)

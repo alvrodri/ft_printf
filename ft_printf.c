@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 16:45:44 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:24:27 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_print_specific(char type, va_list list, t_flags *flags)
 {
 	if (flags->precision != -1 && flags->zero == 1)
+		flags->zero = -1;
+	if (flags->minus == 1 && flags->zero == 1)
 		flags->zero = -1;
 	if (type == 's')
 		ft_print_str(list, flags);
@@ -26,9 +28,9 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 		ft_print_pointer(list, flags);
 	else if (type == 'u')
 		ft_print_uint(va_arg(list, unsigned int), flags);
-	/*else if (type == 'x')
-		ft_print_hex_low(va_arg(list, unsigned int));
-	else if (type == 'X')
+	else if (type == 'x')
+		ft_print_x(va_arg(list, unsigned int), flags);
+	/*else if (type == 'X')
 		ft_print_hex_up(va_arg(list, unsigned int));*/
 	else if (type == '%')
 		ft_print_percent(flags);
@@ -36,7 +38,7 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 
 void	ft_init_flags(t_flags *flags)
 {
-	flags->width = -1;
+	flags->width = 0;
 	flags->precision = -1;
 	flags->minus = -1;
 	flags->zero = -1;
@@ -122,5 +124,5 @@ int		ft_printf(const char *str, ...)
 /*
 int main()
 {
-	ft_printf("hello, %s.", "gavin");
+	ft_printf("%.5x", 21);
 }*/
