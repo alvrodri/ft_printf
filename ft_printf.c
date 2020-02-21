@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/20 19:24:27 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/21 15:13:37 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 		ft_print_uint(va_arg(list, unsigned int), flags);
 	else if (type == 'x')
 		ft_print_x(va_arg(list, unsigned int), flags);
-	/*else if (type == 'X')
-		ft_print_hex_up(va_arg(list, unsigned int));*/
+	else if (type == 'X')
+		ft_print_x_up(va_arg(list, unsigned int), flags);
 	else if (type == '%')
 		ft_print_percent(flags);
 }
@@ -124,5 +124,6 @@ int		ft_printf(const char *str, ...)
 /*
 int main()
 {
-	ft_printf("%.5x", 21);
+	printf("%x\n", 4294967295u);
+	ft_printf("%x", 4294967295u);
 }*/
