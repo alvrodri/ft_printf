@@ -6,11 +6,19 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/20 15:04:02 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/22 15:08:16 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
+
+int	ft_get_spaces(char *str, t_flags *flags)
+{
+	if (flags->width > 0 && flags->precision > ft_strlen(str))
+		return (flags->width - ft_strlen(str));
+	else
+		return (flags->width - flags->precision);
+}
 
 int	ft_get_nbr(const char *str, int *i)
 {
@@ -52,5 +60,7 @@ int	ft_print_blank(int len, int zero)
 	i = -1;
 	while (++i < len)
 		write(1, zero == 1 ? "0" : " ", 1);
+	if (i == -1)
+		i = 0;
 	return (i);
 }
