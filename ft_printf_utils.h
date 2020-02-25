@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:28:30 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 15:42:11 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:22:45 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ int				ft_get_length(int nbr);
 int				ft_print_blank(int len, int zero);
 int				ft_enable_flags(const char *str, t_flags *flags, va_list args);
 void			ft_print_specific(char type, va_list list, t_flags *flags);
-void			ft_print_char(va_list list, t_flags *flags);
+void			ft_print_char(char c, t_flags *flags);
 void			ft_print_str(va_list list, t_flags *flags);
 void			ft_print_int(int nbr, t_flags *flags);
 void			ft_print_uint(unsigned int nbr, t_flags *flags);
 void			ft_print_pointer(unsigned long address, t_flags *flags);
 void			ft_print_x_low(unsigned long nbr, t_flags *flags);
 void			ft_print_x_up(unsigned long nbr, t_flags *flags);
-void			ft_print_percent(t_flags *flags);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:24:47 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 16:01:30 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/22 17:21:48 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int		ft_check_null(char **str, t_flags *flags)
 {
 	if (*str == NULL)
 		*str = ft_strdup("(null)");
+	else
+		*str = ft_strdup(*str);
 	if (flags->precision == 0)
 	{
 		flags->written +=
@@ -60,7 +62,7 @@ void	ft_print_str(va_list list, t_flags *flags)
 	char	*str;
 	int		i;
 
-	str = ft_strdup(va_arg(list, char *));
+	str = va_arg(list, char *);
 	if (ft_check_null(&str, flags) == 1)
 		return ;
 	if (flags->precision != -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alvrodri <alvrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 11:24:39 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 16:01:59 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 16:23:24 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 	if (type == 's')
 		ft_print_str(list, flags);
 	else if (type == 'c')
-		ft_print_char(list, flags);
+		ft_print_char((char)va_arg(list, int), flags);
+	else if (type == '%')
+		ft_print_char('%', flags);
 	else if (type == 'd' || type == 'i')
 		ft_print_int(va_arg(list, int), flags);
 	else if (type == 'p')
@@ -32,8 +34,6 @@ void	ft_print_specific(char type, va_list list, t_flags *flags)
 		ft_print_x_low(va_arg(list, unsigned long), flags);
 	else if (type == 'X')
 		ft_print_x_up(va_arg(list, unsigned long), flags);
-	else if (type == '%')
-		ft_print_percent(flags);
 }
 
 void	ft_init_flags(t_flags *flags)

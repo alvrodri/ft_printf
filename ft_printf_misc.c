@@ -6,7 +6,7 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 12:58:27 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 15:08:16 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 12:54:14 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ int	ft_print_blank(int len, int zero)
 {
 	int i;
 
-	i = -1;
-	while (++i < len)
-		write(1, zero == 1 ? "0" : " ", 1);
-	if (i == -1)
-		i = 0;
+	i = 0;
+	while (i < len)
+		i += write(1, zero == 1 ? "0" : " ", 1);
 	return (i);
 }

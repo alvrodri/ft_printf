@@ -1,4 +1,4 @@
-SRCS	= ft_printf.c ft_printf_int.c ft_printf_misc.c ft_printf_str.c ft_printf_char.c ft_printf_percent.c ft_printf_uint.c ft_printf_x_low.c ft_printf_x_up.c ft_printf_p.c ft_printf_flags.c
+SRCS	= ft_printf.c ft_printf_int.c ft_printf_misc.c ft_printf_str.c ft_printf_char.c ft_printf_uint.c ft_printf_x_low.c ft_printf_x_up.c ft_printf_p.c ft_printf_flags.c
 OBJS	= ${SRCS:.c=.o}
 NAME	= libftprintf.a
 CC		= cc
@@ -14,7 +14,9 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 clean:
 			${RM} ${OBJS}
+			make clean -C libft
 fclean:		clean
 			${RM} ${NAME}
+			make fclean -C libft
 re:			fclean all
 .PHONY:		all clean fclean re

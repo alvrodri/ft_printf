@@ -6,34 +6,17 @@
 /*   By: alvrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:55:46 by alvrodri          #+#    #+#             */
-/*   Updated: 2020/02/18 12:12:47 by alvrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 12:53:30 by alvrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_utils.h"
 
-void	ft_print_cwidth(t_flags *flags)
+void	ft_print_char(char c, t_flags *flags)
 {
-	int i;
-
-	i = 0;
-	while (i < flags->width - 1)
-	{
-		write(1, flags->zero == 1 ? "0" : " ", 1);
-		(flags->written)++;
-		i++;
-	}
-}
-
-void	ft_print_char(va_list args, t_flags *flags)
-{
-	char c;
-
-	c = va_arg(args, int);
 	if (flags->width != -1 && flags->minus != 1)
-		ft_print_cwidth(flags);
-	write(1, &c, 1);
+		flags->written += ft_print_blank(flags->width - 1, flags->zero);
+	flags->written += write(1, &c, 1);
 	if (flags->width != 1 && flags->minus == 1)
-		ft_print_cwidth(flags);
-	(flags->written)++;
+		flags->written += ft_print_blank(flags->width - 1, flags->zero);
 }
